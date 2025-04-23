@@ -13,5 +13,8 @@ public class BallStory {
         hare.tryEat(ball);
         System.out.println("Колобка пытается съесть лиса..");
         fox.tryEat(ball);
+
+        System.out.println("Ну тогда волк  пытается съесть зайца");
+        wolf.tryEatAll(hare);
     }
 }
