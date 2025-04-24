@@ -28,7 +28,7 @@ public class Point {
         return sqrt(pow(this.x - that.x, 2) + pow(this.y - that.y, 2) + pow(this.z - that.z, 2));
     }
 
-//    public void info() {
-//        System.out.println("Point[" + this.x + ", " + this.y + ", " + this.z + "]");
-//    }
+    public void info() {
+        System.out.println("Point[" + this.x + ", " + this.y + ", " + this.z + "]");
+    }
 }

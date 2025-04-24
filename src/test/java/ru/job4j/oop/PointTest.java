@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class PointTest {
     @Test
     void whenDistance2dFromX1Y2toX4Y6Then5() {
