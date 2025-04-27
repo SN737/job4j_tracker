@@ -47,7 +47,8 @@ public class License {
             return false;
         }
         License license = (License) o;
-        return Objects.equals(getOwner(), license.getOwner()) && Objects.equals(getModel(), license.getModel()) && Objects.equals(getCode(), license.getCode()) && Objects.equals(getCreated(), license.getCreated());
+        return Objects.equals(getOwner(), license.getOwner()) && Objects.equals(getModel(), license.getModel())
+                && Objects.equals(getCode(), license.getCode()) && Objects.equals(getCreated(), license.getCreated());
     }
 
     @Override
