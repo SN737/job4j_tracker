@@ -19,7 +19,7 @@ public class Library {
         swap(0, 3, books);
 
         for (int i = 0; i < books.length; i++) {
-            if (books[i].getName().equals("Clean Code")) {
+            if ("Clean Code".equals(books[i].getName())) {
                 System.out.println(books[i].getName());
             }
         }
