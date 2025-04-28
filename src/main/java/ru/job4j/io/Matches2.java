@@ -24,7 +24,7 @@ public class Matches2 {
             } else {
                 int bound = 3;
                 bound =  (bound < 4 && bound < count) ? bound : bound--;
-                matches = new Random().nextInt(1, 4);
+                matches = new Random().nextInt(1, bound);
                 System.out.println("второй игрок ввёл " + matches);
             }
             if (matches > 0 && matches <= 3 && count >= matches) {
