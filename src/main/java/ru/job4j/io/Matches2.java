@@ -2,11 +2,13 @@ package ru.job4j.io;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 /* Версия против компьютера )) */
 public class Matches2 {
     public static int count;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
         Scanner input = new Scanner(System.in);
         System.out.println("Игра 11.");
         boolean turn = true;
@@ -25,7 +27,9 @@ public class Matches2 {
                 int bound = 3;
                 bound =  (bound < 4 && bound < count) ? bound : bound--;
                 matches = new Random().nextInt(1, bound);
-                System.out.println("второй игрок ввёл " + matches);
+                TimeUnit.SECONDS.sleep(1);
+                System.out.println("AI игрок ввёл " + matches);
+                TimeUnit.SECONDS.sleep(1);
             }
             if (matches > 0 && matches <= 3 && count >= matches) {
                 count -= matches;
