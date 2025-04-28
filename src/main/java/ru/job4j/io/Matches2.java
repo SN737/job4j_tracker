@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Matches2 {
     public static int count;
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("Игра 11.");
         boolean turn = true;
