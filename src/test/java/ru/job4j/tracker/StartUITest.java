@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StartUITest {
+    Output output = new ConsoleOutput();
+
     @Test
     void whenCreateItem() {
         Input input = new MockInput(
@@ -11,10 +13,10 @@ class StartUITest {
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
-                new ExitAction()
+                new CreateAction(output),
+                new ExitAction(output)
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
     }
 
@@ -28,10 +30,10 @@ class StartUITest {
                 new String[] {"0", id, replacedName, "1"}
         );
         UserAction[] actions = {
-                new ReplaceAction(),
-                new ExitAction()
+                new ReplaceAction(output),
+                new ExitAction(output)
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
     }
 
@@ -44,27 +46,28 @@ class StartUITest {
                 new String[] {"0", id, "1"}
         );
         UserAction[] actions = {
-                new DeleteAction(),
-                new ExitAction()
+                new DeleteAction(output),
+                new ExitAction(output)
         };
-        new StartUI().init(input, tracker, actions);
+        new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
     }
 
     @Test
     void whenDeleteItemMyVer() {
+        Output output = new ConsoleOutput();
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
-                new FindAllAction(),
-                new ReplaceAction(),
-                new DeleteAction(),
-                new FindByIdAction(),
-                new FindByNameAction(),
-                new ExitAction()
+                new CreateAction(output),
+                new FindAllAction(output),
+                new ReplaceAction(output),
+                new DeleteAction(output),
+                new FindByIdAction(output),
+                new FindByNameAction(output),
+                new ExitAction(output)
         };
         String[] select = {"0", "new item", "6"};
-        new StartUI().init(new MockInput(select), tracker, actions);
+        new StartUI(output).init(new MockInput(select), tracker, actions);
         Item created = tracker.findAll()[0];
         Item expected = new Item("new item");
         assertThat(created.getName()).isEqualTo(expected.getName());
@@ -74,17 +77,35 @@ class StartUITest {
     void whenCreateItemMyVer() {
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(),
-                new FindAllAction(),
-                new ReplaceAction(),
-                new DeleteAction(),
-                new FindByIdAction(),
-                new FindByNameAction(),
-                new ExitAction()
+                new CreateAction(output),
+                new FindAllAction(output),
+                new ReplaceAction(output),
+                new DeleteAction(output),
+                new FindByIdAction(output),
+                new FindByNameAction(output),
+                new ExitAction(output)
         };
         String[] select = {"0", "new item", "3", "1", "6"};
-        new StartUI().init(new MockInput(select), tracker, actions);
+        new StartUI(output).init(new MockInput(select), tracker, actions);
         Item deleted = tracker.findById(1);
         assertThat(deleted).isEqualTo(null);
+    }
+
+    @Test
+    void whenExit() {
+        Output output = new StubOutput();
+        Input input = new MockInput(
+                new String[] {"0"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = {
+                new ExitAction(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Завершить программу" + System.lineSeparator()
+                        + "===Завершение программы===" + System.lineSeparator()
+        );
     }
 }
