@@ -5,38 +5,39 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class StartUITest {
     @Test
-    void whenAddItem() {
-        String[] answers = {"Fix PC"};
-        Input input = new MockInput(answers);
+    void whenDeleteItem() {
         Tracker tracker = new Tracker();
-        StartUI.createItem(input, tracker);
+        UserAction[] actions = {
+                new CreateAction(),
+                new FindAllAction(),
+                new ReplaceAction(),
+                new DeleteAction(),
+                new FindByIdAction(),
+                new FindByNameAction(),
+                new ExitAction()
+        };
+        String[] select = {"0", "new item", "6"};
+        new StartUI().init(new MockInput(select), tracker, actions);
         Item created = tracker.findAll()[0];
-        Item expected = new Item("Fix PC");
+        Item expected = new Item("new item");
         assertThat(created.getName()).isEqualTo(expected.getName());
     }
 
     @Test
-    void whenReplaceItem() {
+    void whenCreateItem() {
         Tracker tracker = new Tracker();
-        Item item = new Item("new item");
-        tracker.add(item);
-        String[] answers = {
-                String.valueOf(item.getId()), "edited item"
+        UserAction[] actions = {
+                new CreateAction(),
+                new FindAllAction(),
+                new ReplaceAction(),
+                new DeleteAction(),
+                new FindByIdAction(),
+                new FindByNameAction(),
+                new ExitAction()
         };
-        StartUI.replaceItem(new MockInput(answers), tracker);
-        Item edited = tracker.findById(item.getId());
-        assertThat(edited.getName()).isEqualTo("edited item");
-    }
-
-    @Test
-    void whenDeleteItem() {
-
-        Tracker tracker = new Tracker();
-        Item item = new Item("new item to delete");
-        tracker.add(item);
-        String[] answers = {String.valueOf(item.getId())};
-        StartUI.deleteItem(new MockInput(answers), tracker);
-        Item deleted = tracker.findById(item.getId());
+        String[] select = {"0", "new item", "3", "1" ,"6"};
+        new StartUI().init(new MockInput(select), tracker, actions);
+        Item deleted = tracker.findById(1);
         assertThat(deleted).isEqualTo(null);
     }
 }
