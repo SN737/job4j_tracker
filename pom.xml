@@ -49,6 +49,7 @@
                     </dependency>
                 </dependencies>
                 <executions>
+
                     <execution>
                         <id>validate</id>
                         <phase>validate</phase>
@@ -95,6 +96,7 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
+
                 </executions>
             </plugin>
         </plugins>
