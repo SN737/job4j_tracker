@@ -23,7 +23,7 @@ public class StartUI {
                 UserAction action = actions[select];
                 run = action.execute(input, tracker);
             }  catch (ArrayIndexOutOfBoundsException aie) {
-                System.out.println("Неверный ввод, вы можете выбрать от 0 до " + (actions.length - 1));
+                output.println("Неверный ввод, вы можете выбрать от 0 до " + (actions.length - 1));
                 }
 
         }

@@ -9,6 +9,9 @@ import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.output.StubOutput;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIndexOutOfBoundsException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static java.lang.ArrayIndexOutOfBoundsException.*;
 
 class StartUITest {
     Output output = new ConsoleOutput();
@@ -194,6 +197,28 @@ class StartUITest {
                         + "Меню:" + ln
                         + "0. Показать заявку по id" + ln
                         + "1. Завершить программу" + ln
+                        + "===Завершение программы===" + ln
+        );
+    }
+
+    @Test
+    void whenInvalidExit() {
+        Output output = new StubOutput();
+        Input input = new MockInput(
+                new String[] {"8", "0"}
+        );
+        Tracker tracker = new Tracker();
+        UserAction[] actions = new UserAction[]{
+                new ExitAction(output)
+        };
+        new StartUI(output).init(input, tracker, actions);
+        String ln = System.lineSeparator();
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + ln
+                        + "0. Завершить программу" + ln
+                        + "Неверный ввод, вы можете выбрать от 0 до " + (actions.length - 1) + ln
+                        + "Меню:" + ln
+                        + "0. Завершить программу" + ln
                         + "===Завершение программы===" + ln
         );
     }
