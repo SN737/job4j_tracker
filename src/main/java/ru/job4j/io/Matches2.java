@@ -24,8 +24,8 @@ public class Matches2 {
             if (turn) {
                 matches = Integer.parseInt(input.nextLine());
             } else {
-                int bound = 3;
-                bound =  (bound < 4 && bound < count) ? bound : bound--;
+                int bound = 4;
+                bound =  (bound < 5 && bound < count) ? bound : bound--;
                 matches = new Random().nextInt(1, bound);
                 TimeUnit.SECONDS.sleep(1);
                 System.out.println("AI игрок ввёл " + matches);
