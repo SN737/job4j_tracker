@@ -19,13 +19,12 @@ public class StartUI {
         while (run) {
             showMenu(actions);
             int select = input.askInt("Выбрать: ");
-            try {
-                UserAction action = actions[select];
-                run = action.execute(input, tracker);
-            }  catch (ArrayIndexOutOfBoundsException aie) {
+            if (select < 0 || select >= actions.length) {
                 output.println("Неверный ввод, вы можете выбрать от 0 до " + (actions.length - 1));
-                }
-
+                continue;
+            }
+            UserAction action = actions[select];
+            run = action.execute(input, tracker);
         }
     }
 
