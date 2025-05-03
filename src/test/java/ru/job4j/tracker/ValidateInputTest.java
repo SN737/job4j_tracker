@@ -1,10 +1,8 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.tracker.action.*;
 import ru.job4j.tracker.input.Input;
 import ru.job4j.tracker.input.MockInput;
-import ru.job4j.tracker.output.ConsoleOutput;
 import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.output.StubOutput;
@@ -35,18 +33,6 @@ class ValidateInputTest {
     }
 
     @Test
-    void whenMultipleValidInput() {
-        Output output = new StubOutput();
-        String[] testValues = new String[] {"0", "1", "2", "3"};
-        Input in = new MockInput(testValues);
-        ValidateInput input = new ValidateInput(output, in);
-        for (String value : testValues) {
-            int selected = input.askInt("Enter menu:");
-            assertThat(selected).isEqualTo(Integer.parseInt(value));
-        }
-    }
-
-    @Test
     void whenNegativeInput() {
         Output output = new StubOutput();
         Input in = new MockInput(
@@ -58,7 +44,7 @@ class ValidateInputTest {
     }
 
     @Test
-    void whenMultipleValidInputHardCode() {
+    void whenMultipleValidInput() {
         Output output = new StubOutput();
         String[] testValues = new String[] {"0", "1", "2", "3"};
         Input in = new MockInput(testValues);
