@@ -2,9 +2,7 @@ package ru.job4j.tracker.input;
 
 import ru.job4j.tracker.output.Output;
 
-import java.util.Scanner;
-
-public class ValidateInput extends ConsoleInput {
+public class ValidateInput implements Input {
     private final Output output;
     private final Input input;
 
@@ -24,10 +22,10 @@ public class ValidateInput extends ConsoleInput {
         int value = -1;
         do {
             try {
-                value = super.askInt(question);
+                value = input.askInt(question);
                 invalid = false;
             } catch (NumberFormatException nfe) {
-                System.out.println("Пожалуйста, введите корректные данные");
+                output.println("Пожалуйста, введите корректные данные");
             }
         } while (invalid);
         return value;
