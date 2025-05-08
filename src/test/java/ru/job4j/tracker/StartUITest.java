@@ -10,7 +10,6 @@ import ru.job4j.tracker.output.StubOutput;
 import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 class StartUITest {
     Output output = new ConsoleOutput();
 
@@ -57,8 +56,6 @@ class StartUITest {
         actions.add(new ExitAction(output));
         new StartUI(output).init(input, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
-
-
     }
 
     @Test
