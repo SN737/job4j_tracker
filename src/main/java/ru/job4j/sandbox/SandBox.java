@@ -5,16 +5,14 @@ public class SandBox {
 
     public static int[] bubble(int[] arr) {
 
-        for (int j = 0; j < arr.length - 1; j++) {
-            if (arr[j] >= arr[j + 1]) {
-                for (int i = 0; i < arr.length - 1; i++) {
-                    if (arr[i] > arr[i + 1]) {
-                        int temp = arr[i];
-                        arr[i] = arr[i + 1];
-                        arr[i + 1] = temp;
-                    }
+
+        for (int j = 0; j < arr.length - j; j++) {
+            for (int i = 0; i < arr.length - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    int temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
                 }
-                j = 0;
             }
         }
         return arr;
@@ -27,6 +25,7 @@ public class SandBox {
     }
 
 public static void main(String[] args) {
+
     System.out.println("было:");
     arrayPrint(array);
     System.out.println();
