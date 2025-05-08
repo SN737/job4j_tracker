@@ -20,7 +20,6 @@ public class PhoneDictionary {
             if (element.getName().contains(key) || element.getSurname().contains(key)
                     || element.getPhone().contains(key) || element.getAddress().contains(key)) {
                 result.add(element);
-                break;
             }
         }
         return result;
