@@ -48,7 +48,7 @@ public class Tracker {
         boolean result = index != -1;
         if (result) {
             item.setId(id);
-            items.add(index, item);
+            items.set(index, item);
         }
         return result;
     }
