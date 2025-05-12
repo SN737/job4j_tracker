@@ -20,8 +20,6 @@ public class BankService {
     }
 
     public void addAccount(String passport, Account account) {
-
-
     }
 
     public User findByPassport(String passport) {
