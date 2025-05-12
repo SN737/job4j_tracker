@@ -3,10 +3,7 @@ package ru.job4j.bank;
 import ru.job4j.bank.Account;
 import ru.job4j.bank.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BankService {
     private final Map<User, List<Account>> users = new HashMap<>();
@@ -16,10 +13,17 @@ public class BankService {
     }
 
     public void deleteUser(String passport) {
-        users.remove(users.get(passport));
+        users.remove(findByPassport(passport));
     }
 
     public void addAccount(String passport, Account account) {
+        User user = findByPassport(passport);
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+            if (!accounts.contains(account)) {
+                accounts.add(account);
+            }
+        }
     }
 
     public User findByPassport(String passport) {
@@ -32,6 +36,15 @@ public class BankService {
     }
 
     public Account findByRequisite(String passport, String requisite) {
+        User user = findByPassport(passport);
+        if (user != null) {
+            List<Account> accounts = users.get(user);
+            for (Account account : accounts) {
+                if (account.getRequisite().equals(requisite)) {
+                    return account;
+                }
+            }
+        }
         return null;
     }
 
@@ -39,6 +52,17 @@ public class BankService {
                                  String destinationPassport, String destinationRequisite,
                                  double amount) {
         boolean result = false;
+        User sourceUser = findByPassport(sourcePassport);
+        User destinationUser = findByPassport(destinationPassport);
+        Account sourceAccount = findByRequisite(sourcePassport, sourceRequisite);
+        Account destinationAccount = findByRequisite(destinationPassport, destinationRequisite);
+        if (sourceUser != null && destinationUser != null && sourceAccount != null && destinationAccount != null) {
+            if (sourceAccount.getBalance() >= amount) {
+                sourceAccount.setBalance(sourceAccount.getBalance() - amount);
+                destinationAccount.setBalance(destinationAccount.getBalance() + amount);
+                result = true;
+            }
+        }
         return result;
     }
 
