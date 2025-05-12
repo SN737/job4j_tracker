@@ -34,17 +34,20 @@ public class AnalyzeByMap {
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         List<Label> averageScore = new ArrayList<>();
-        double avgScoreBySubj = 0;
+        Map<String, Integer> scoreBySubjects = new LinkedHashMap<>();
+        double pupilsQty = 0;
         for (Pupil pupil : pupils) {
-            double sumScore = 0;
-            double qtyStudents = 0;
             for (Subject subject : pupil.subjects()) {
-                sumScore +=  subject.score();
-
+                scoreBySubjects.put(
+                        subject.name(),
+                        scoreBySubjects.getOrDefault(subject.name(), 0) + subject.score()
+                );
             }
-            qtyStudents++;
-            avgScoreBySubj = sumScore / qtyStudents;
-            averageScore.add(new Label(pupil.name(), avgScoreBySubj));
+            pupilsQty++;
+        }
+            for (String subjectName : scoreBySubjects.keySet()) {
+                double avg = scoreBySubjects.get(subjectName) / pupilsQty;
+                averageScore.add(new Label(subjectName, avg));
         }
         return averageScore;
     }
