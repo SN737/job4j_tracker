@@ -1,5 +1,6 @@
 package ru.job4j.hashmap;
 
+import java.util.List;
 import java.util.*;
 
 public class AnalyzeByMap {
@@ -18,7 +19,6 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreByPupil(List<Pupil> pupils) {
         List<Label> averageScore = new ArrayList<>();
         double avgScoreByPupil = 0;
-
         for (Pupil pupil : pupils) {
             double sumScore = 0;
             double qtySubjects = 0;
@@ -41,7 +41,9 @@ public class AnalyzeByMap {
                 scoreBySubjects.put(
                         subject.name(),
                         scoreBySubjects.getOrDefault(subject.name(), 0) + subject.score()
+                       /* subject.score() */
                 );
+                /*System.out.println(scoreBySubjects); */
             }
             pupilsQty++;
         }
@@ -53,10 +55,34 @@ public class AnalyzeByMap {
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        return null;
+        List<Label> best = new ArrayList<>();
+        for (Pupil pupil : pupils) {
+            int sumScore = 0;
+            for (Subject subject : pupil.subjects()) {
+                sumScore +=  subject.score();
+            }
+            best.add(new Label(pupil.name(), sumScore));
+        }
+        best.sort(Comparator.reverseOrder());
+        /* методы getLast/getFirst у меня не работают, падает в ошибку "cannot find a symbol", поэтому так */
+        return best.get(0);
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        return null;
+        List<Label> best = new ArrayList<>();
+        Map<String, Integer> scoreBySubjects = new LinkedHashMap<>();
+        for (Pupil pupil : pupils) {
+            for (Subject subject : pupil.subjects()) {
+                scoreBySubjects.put(
+                        subject.name(),
+                        scoreBySubjects.getOrDefault(subject.name(), 0) + subject.score()
+                );
+            }
+        }
+        for (String subjectName : scoreBySubjects.keySet()) {
+            best.add(new Label(subjectName, scoreBySubjects.get(subjectName)));
+        }
+        best.sort(Comparator.reverseOrder());
+        return best.get(0);
     }
 }
