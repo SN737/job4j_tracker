@@ -16,7 +16,7 @@ public class ScheduleTask {
     }
 
     public Task readTask() {
-       return queue.peek();
+       return this.queue.peek();
     }
 
     public Task getTask() {
