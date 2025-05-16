@@ -2,9 +2,13 @@ package ru.job4j.sandbox;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class SandBox {
     public static  int[] array = {25, 3, 4, 2, 1, -1, 6, -999, 9, 11, 14, 12, 10};
+
+    Comparator<String> comparatorText = (left, right) -> left.compareTo(right);
+    Comparator<String> comparatorDescSize = (left, right) -> Integer.compare(right.length(), left.length());
 
     public static int[] bubble(int[] arr) {
         for (int j = 0; j < arr.length - j; j++) {
