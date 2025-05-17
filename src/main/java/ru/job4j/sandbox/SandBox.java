@@ -1,6 +1,5 @@
 package ru.job4j.sandbox;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -30,12 +29,23 @@ public class SandBox {
         }
     }
 
-public static void main(String[] args) {
+    /** Пример рекурсии,  писал сам, нигде смотрел не читал */
+    public static void rec(int i) {
+        String[] array = {"1", "3", "5", "7", "9", "11", "13", "15", "17", "19"};
+        if (i < array.length) {
+            System.out.println(array[i]);
+            i++;
+            rec(i);
+        }
+    }
 
+public static void main(String[] args) {
     System.out.println("было:");
     arrayPrint(array);
     System.out.println();
     arrayPrint(bubble(array));
+    /* вызов рекурсии */
+    rec(0);
     }
 }
 
