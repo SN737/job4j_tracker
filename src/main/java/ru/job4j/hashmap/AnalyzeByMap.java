@@ -38,12 +38,11 @@ public class AnalyzeByMap {
         double pupilsQty = 0;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                scoreBySubjects.put(
+                scoreBySubjects.merge(
                         subject.name(),
-                        scoreBySubjects.getOrDefault(subject.name(), 0) + subject.score()
-                       /* subject.score() */
+                        subject.score(),
+                        (oldValue, newValue) -> oldValue + newValue
                 );
-                /*System.out.println(scoreBySubjects); */
             }
             pupilsQty++;
         }
@@ -73,9 +72,10 @@ public class AnalyzeByMap {
         Map<String, Integer> scoreBySubjects = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                scoreBySubjects.put(
+                scoreBySubjects.merge(
                         subject.name(),
-                        scoreBySubjects.getOrDefault(subject.name(), 0) + subject.score()
+                        subject.score(),
+                        (oldValue, newValue) -> oldValue + newValue
                 );
             }
         }
